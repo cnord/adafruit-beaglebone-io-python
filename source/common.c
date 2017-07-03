@@ -491,15 +491,15 @@ int uboot_overlay_enabled(void) {
 */
 /* WORK IN PROGRESS */
 #define BUFFER_SIZE 255
-int config_pin(char *pin, char *mode) {
+int config_pin(const char *pin, const char *mode) {
     const char *cmd = "/usr/bin/config-pin";
     char buffer[BUFFER_SIZE] = "";
     char *result;
     FILE *file = NULL;
     
-    fprintf(stderr, "DEBUG: config_pin(): pin=%s", pin);
-    fprintf(stderr, "DEBUG: config_pin(): mode=%s", mode);
-    fprintf(stderr, "DEBUG: config_pin(): cmd=%s", cmd);
+    fprintf(stderr, "DEBUG: config_pin(): pin=%s\n", pin);
+    fprintf(stderr, "DEBUG: config_pin(): mode=%s\n", mode);
+    fprintf(stderr, "DEBUG: config_pin(): cmd=%s\n", cmd);
 
     file = popen(cmd, "r");
     if (file == NULL) {
@@ -509,9 +509,9 @@ int config_pin(char *pin, char *mode) {
     result = fgets(buffer, BUFFER_SIZE, file);
     pclose(file);
     
-    fprintf(stderr, "DEBUG: config_pin(): buffer=%s", buffer);
-    fprintf(stderr, "DEBUG: config_pin(): result=%p", result);
-    fprintf(stderr, "DEBUG: config_pin(): NULL=%p", NULL);
+    fprintf(stderr, "DEBUG: config_pin(): buffer=%s\n", buffer);
+    fprintf(stderr, "DEBUG: config_pin(): result=%p\n", result);
+    fprintf(stderr, "DEBUG: config_pin(): NULL=%p\n", NULL);
 
     if(result == NULL) {
       return -2;
