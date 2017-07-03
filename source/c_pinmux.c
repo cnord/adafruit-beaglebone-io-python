@@ -12,6 +12,8 @@ BBIO_err set_pin_mode(const char *key, const char *mode)
 	char pinmux_dir[20]; // "ocp:P#_##_pinmux"
 	char pin[6]; //"P#_##"
 	FILE *f = NULL;
+        fprintf(stderr, "DEBUG: set_pin_mode(): key=%s\n", key);
+        fprintf(stderr, "DEBUG: set_pin_mode(): mode=%s\n", mode);
 	
 	if (strlen(key) == 4)	// Key P#_# format, must inject '0' to be P#_0#
 		snprintf(pin, sizeof(pin), "%.3s0%c", key,key[3]);
@@ -30,6 +32,7 @@ BBIO_err set_pin_mode(const char *key, const char *mode)
 
 	snprintf(pinmux_dir, sizeof(pinmux_dir), "ocp:%s_pinmux", pin);
 	snprintf(path, sizeof(path), "%s/%s/state", ocp_dir, pinmux_dir);
+        fprintf(stderr, "DEBUG: set_pin_mode(): path=%s\n", path);
 
 	f = fopen(path, "w");
 	if (NULL == f) {

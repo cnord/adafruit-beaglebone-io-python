@@ -468,6 +468,59 @@ int uboot_overlay_enabled(void) {
 }
 
 
+/*
+   Run config-pin utility if cape-universal is loaded
+
+   config-pin can set the mode for a given pin.
+
+   This is an alternative to loading device tree overlays
+   for specific pin configurations.
+
+   Review the bb.overlays repo for more information:
+   https://github.com/beagleboard/bb.org-overlays/tree/master/tools/beaglebone-universal-io
+
+   The source for the config-pin script is located at:
+   https://github.com/beagleboard/bb.org-overlays/blob/master/tools/beaglebone-universal-io/config-pin
+
+   It should also be present on BeagleBoard.org Debian images in:
+   /opt/source/bb.org-overlays/
+
+   The script is installed at:
+   /usr/bin/config-pin
+
+*/
+/* WORK IN PROGRESS */
+#define BUFFER_SIZE 255
+int config_pin(char *pin, char *mode) {
+    const char *cmd = "/usr/bin/config-pin";
+    char buffer[BUFFER_SIZE] = "";
+    char *result;
+    FILE *file = NULL;
+    
+    fprintf(stderr, "DEBUG: config_pin(): pin=%s", pin);
+    fprintf(stderr, "DEBUG: config_pin(): mode=%s", mode);
+    fprintf(stderr, "DEBUG: config_pin(): cmd=%s", cmd);
+
+    file = popen(cmd, "r");
+    if (file == NULL) {
+       fprintf(stderr, "error: config_pin(): failed to run cmd=%s\n", cmd);
+       return -1;
+    }
+    result = fgets(buffer, BUFFER_SIZE, file);
+    pclose(file);
+    
+    fprintf(stderr, "DEBUG: config_pin(): buffer=%s", buffer);
+    fprintf(stderr, "DEBUG: config_pin(): result=%p", result);
+    fprintf(stderr, "DEBUG: config_pin(): NULL=%p", NULL);
+
+    if(result == NULL) {
+      return -2;
+    }
+    
+    return 0;
+}
+
+
 BBIO_err load_device_tree(const char *name)
 {
     char line[256];
