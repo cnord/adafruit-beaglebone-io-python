@@ -39,7 +39,7 @@ extension_args = {
     'define_macros': kernel41
 }
 
-setup(name             = 'Adafruit_BBIO',
+setup(name             = 'Adafruit_BBIO-fixed',
       version          = '1.0.5',
       author           = 'Justin Cooper',
       author_email     = 'justin@adafruit.com',
@@ -56,4 +56,3 @@ setup(name             = 'Adafruit_BBIO',
                           Extension('Adafruit_BBIO.ADC', ['source/py_adc.c', 'source/c_adc.c', 'source/constants.c', 'source/common.c'], **extension_args),
                           Extension('Adafruit_BBIO.SPI', ['source/spimodule.c', 'source/constants.c', 'source/common.c'], **extension_args),
                           Extension('Adafruit_BBIO.UART', ['source/py_uart.c', 'source/c_uart.c', 'source/constants.c', 'source/common.c'], **extension_args)] )
-
